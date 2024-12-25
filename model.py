@@ -9,7 +9,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sns
 
 # Chemin vers le dossier contenant les données
-data_dir = "C:/Users/WALID/Desktop/brain_tumor_classification/data"  # Remplace par le chemin réel
+data_dir = "C:/Users/WALID/Desktop/brain_tumor_classification/data"
 
 # Charger et prétraiter les données
 X, y = preprocess_data(data_dir)
@@ -18,33 +18,60 @@ X, y = preprocess_data(data_dir)
 from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Création du modèle CNN
-def create_model():
+# Création du modèle CNN avancé
+def create_advanced_model():
     model = models.Sequential([
+        # Bloc Convolutionnel 1
         layers.Conv2D(32, (3, 3), activation='relu', input_shape=(128, 128, 1)),
+        layers.BatchNormalization(),
         layers.MaxPooling2D((2, 2)),
+        layers.Dropout(0.25),
+
+        # Bloc Convolutionnel 2
         layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.BatchNormalization(),
         layers.MaxPooling2D((2, 2)),
-        layers.Conv2D(64, (3, 3), activation='relu'),
+        layers.Dropout(0.25),
+
+        # Bloc Convolutionnel 3
+        layers.Conv2D(128, (3, 3), activation='relu'),
+        layers.BatchNormalization(),
+        layers.MaxPooling2D((2, 2)),
+        layers.Dropout(0.3),
+
+        # Bloc Convolutionnel 4
+        layers.Conv2D(256, (3, 3), activation='relu'),
+        layers.BatchNormalization(),
+        layers.MaxPooling2D((2, 2)),
+        layers.Dropout(0.4),
+
+        # Couches Fully Connected
         layers.Flatten(),
-        layers.Dense(64, activation='relu'),
+        layers.Dense(256, activation='relu'),
+        layers.BatchNormalization(),
+        layers.Dropout(0.5),
+        layers.Dense(128, activation='relu'),
+        layers.BatchNormalization(),
+        layers.Dropout(0.5),
+
+        # Couche de sortie
         layers.Dense(4, activation='softmax')  # 4 classes de tumeurs
     ])
     return model
 
-# Créer le modèle
-model = create_model()
+# Créer le modèle avancé
+model = create_advanced_model()
 
 # Résumé du modèle
 model.summary()
 
 # Compilation du modèle
-model.compile(optimizer='adam',
+model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 
 # Entraîner le modèle
-history = model.fit(X_train, y_train, epochs=10, batch_size=32, validation_data=(X_test, y_test))
+history = model.fit(X_train, y_train, epochs=20, batch_size=32, validation_data=(X_test, y_test))
 
 # Évaluation du modèle
 test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)
@@ -92,7 +119,7 @@ def plot_learning_curves(history):
 plot_learning_curves(history)
 
 # Sauvegarder le modèle
-model.save("tumor_classification_model.keras")
+model.save("advanced_tumor_classification_model.keras")
 
 # Exemple de prédiction sur une nouvelle image
 def predict_image(image_path):

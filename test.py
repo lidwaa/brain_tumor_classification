@@ -1,6 +1,11 @@
-from tensorflow.keras.models import load_model
+from tensorflow.python.client import device_lib
+print(device_lib.list_local_devices())
 
-# Charger ton modèle depuis un fichier .h5
-model = load_model('tumor_classification_model.h5')
-# Sauvegarder le modèle au format .keras
-model.save('my_model.keras')
+from tensorflow.python.client import device_lib
+
+# List local devices
+local_devices = device_lib.list_local_devices()
+
+# Print local devices
+for device in local_devices:
+    print(device.name, device.device_type, device.memory_limit)
