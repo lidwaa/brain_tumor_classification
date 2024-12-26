@@ -1,11 +1,11 @@
 import numpy as np
 import cv2
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 import os
 
 
 # Charger le modèle sauvegardé
-model = load_model('tumor_classification_model.keras')
+model = load_model('advanced_tumor_classification_model.keras')
 
 # Liste des classes possibles (tu dois les adapter à ton modèle)
 class_names = ['glioma', 'meningioma', 'pituitary', 'no tumor']

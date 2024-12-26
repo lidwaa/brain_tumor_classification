@@ -71,7 +71,7 @@ model.compile(optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
               metrics=['accuracy'])
 
 # Entraîner le modèle
-history = model.fit(X_train, y_train, epochs=20, batch_size=32, validation_data=(X_test, y_test))
+history = model.fit(X_train, y_train, epochs=20, batch_size=64, validation_data=(X_test, y_test))
 
 # Évaluation du modèle
 test_loss, test_acc = model.evaluate(X_test, y_test, verbose=2)

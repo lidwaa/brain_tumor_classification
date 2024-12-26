@@ -8,6 +8,7 @@ classes = ["glioma", "meningioma", "pituitary", "notumor"]
 
 def load_data(data_dir, classes):
     data = []
+    total_images = 0  # Variable pour compter le nombre d'images chargées
     for label, class_name in enumerate(classes):
         class_dir = os.path.join(data_dir, class_name)
         for img_name in os.listdir(class_dir):
@@ -19,8 +20,11 @@ def load_data(data_dir, classes):
                 img_resized = cv2.resize(img, (IMG_SIZE, IMG_SIZE))
                 # Ajouter l'image et le label à la liste
                 data.append([img_resized, label])
+                total_images += 1  # Incrémenter le compteur à chaque image chargée
             except Exception as e:
                 print(f"Erreur lors du chargement de l'image : {img_path}, {e}")
+    
+    print(f"Nombre total d'images chargées : {total_images}")  # Afficher le nombre d'images
     return data
 
 def preprocess_data(data_dir):

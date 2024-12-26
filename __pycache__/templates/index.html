@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classification de Tumeurs Cérébrales</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        input[type="file"] {
+            padding: 10px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 30px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Classifier une image de tumeur cérébrale</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept="image/*" required>
+            <button type="submit">Télécharger et classifier</button>
+        </form>
+
+        {% if prediction %}
+        <div class="result">
+            <h2>Résultat de la classification :</h2>
+            <p>La tumeur est de type : <strong>{{ prediction }}</strong></p>
+            <img src="{{ image_path }}" alt="Image téléchargée">
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
