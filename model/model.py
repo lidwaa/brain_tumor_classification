@@ -1,6 +1,6 @@
 import tensorflow as tf
 from keras import layers, models
-from model_training.data_preprocessing import preprocess_data
+from data_preprocessing import preprocess_data
 import os
 import cv2
 import numpy as np
@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sns
 
-data_dir = "../data"
+data_dir = "data"
+
 
 X, y = preprocess_data(data_dir)
 
@@ -106,7 +107,7 @@ def plot_learning_curves(history):
 
 plot_learning_curves(history)
 
-model.save("../static/advanced_tumor_classification_model.keras")
+model.save("static/advanced_tumor_classification_model.keras")
 
 def predict_image(image_path):
     image = cv2.imread(image_path, cv2.IMREAD_GRAYSCALE)
