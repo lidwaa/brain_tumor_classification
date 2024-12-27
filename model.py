@@ -9,7 +9,7 @@ from sklearn.metrics import classification_report, confusion_matrix
 import seaborn as sns
 
 # Chemin vers le dossier contenant les données
-data_dir = "C:/Users/WALID/Desktop/brain_tumor_classification/data"
+data_dir = "data"
 
 # Charger et prétraiter les données
 X, y = preprocess_data(data_dir)
