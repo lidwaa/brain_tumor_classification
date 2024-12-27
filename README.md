@@ -11,7 +11,6 @@ Ce projet est une application web permettant de classifier des images de tumeurs
 - [Structure du projet](#structure-du-projet)
 - [Dataset](#dataset)
 - [Contributeurs](#contributeurs)
-- [Licence](#licence)
 - [Liens](#liens)
 
 ## Description
